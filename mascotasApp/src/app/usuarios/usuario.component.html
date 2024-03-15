@@ -1,0 +1,101 @@
+<app-header></app-header>
+<div class="row">
+    <div class="col-2"></div>
+    <div class="col-8">
+        <div class="card mb-3">
+            <div class="text-black" style="background-color: white;">
+                <div class="card-header">{{title}}</div>
+                <div class="card-body"></div>
+                <form (ngSubmit)="create()" class="center">
+                    <div class="form-group row center">
+                        <label for="cedula" class="col-form-label col-sm-2">Cedula</label>
+                        <div class="col-sm-6 my-2">
+                            <input type="text" class="form-control" *ngIf="!usuarioEditar" [(ngModel)]="usuario.cedula"
+                                name="cedula" required="true">
+                            <input type="text" class="form-control" *ngIf="usuarioEditar"
+                                [(ngModel)]="usuarioEditar.cedula" name="cedula" required="true">
+                        </div>
+                    </div>
+                    <div class="form-group row center">
+                        <label for="nombres" class="col-form-label col-sm-2">nombres</label>
+                        <div class="col-sm-6 my-2">
+                            <input type="text" class="form-control" *ngIf="!usuarioEditar" [(ngModel)]="usuario.nombres"
+                                name="nombres" required="true">
+                            <input type="text" class="form-control" *ngIf="usuarioEditar"
+                                [(ngModel)]="usuarioEditar.nombres" name="nombres" required="true">
+                        </div>
+                    </div>
+                    <div class="form-group row center">
+                        <label for="apellidos" class="col-form-label col-sm-2">Apellidos</label>
+                        <div class="col-sm-6 my-2">
+                            <input type="text" class="form-control" *ngIf="!usuarioEditar" [(ngModel)]="usuario.apellidos"
+                                name="apellidos" required="true">
+                            <input type="text" class="form-control" *ngIf="usuarioEditar"
+                                [(ngModel)]="usuarioEditar.apellidos" name="apellidos" required="true">
+                        </div>
+                    </div>
+                    <div class="form-group row center">
+                        <label for="direccion" class="col-form-label col-sm-2">Direccion</label>
+                        <div class="col-sm-6 my-2">
+                            <input type="text" class="form-control" *ngIf="!usuarioEditar" [(ngModel)]="usuario.direccion"
+                                name="direccion" required="true">
+                            <input type="text" class="form-control" *ngIf="usuarioEditar"
+                                [(ngModel)]="usuarioEditar.direccion" name="direccion" required="true">
+                        </div>
+                    </div>
+                    <div class="form-group row center">
+                        <label for="telefono" class="col-form-label col-sm-2">Telefono</label>
+                        <div class="col-sm-6 my-2">
+                            <input type="text" class="form-control" *ngIf="!usuarioEditar" [(ngModel)]="usuario.telefono"
+                                name="telefono" required="true">
+                            <input type="text" class="form-control" *ngIf="usuarioEditar"
+                                [(ngModel)]="usuarioEditar.telefono" name="telefono" required="true">
+                        </div>
+                    </div>
+                    <div class="form-group row center">
+                        <div class="col-sm-12 center my-2">
+                            <button class="btn btn-primary " *ngIf="!usuarioEditar" name="button">Guardar</button>
+                            <button class="btn btn-primary " *ngIf="usuarioEditar" name="button">Actualizar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="card-body text-primary" style="background-color: #196844;" *ngIf="usuarioActual">
+                <div class="card-body text-primary" style="background-color: #196844;">
+                    <h5 class="card-title" style="color: white;">Usuarios</h5>
+
+                    <table class="table table-striped" style="color: white;">
+                        <thead>
+                            <tr>
+                                <th>Cedula</th>
+                                <th>Nombres</th>
+                                <th>Apellidos</th>
+                                <th>Telefono</th>
+                                <th>Direccion</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody style="color: white;">
+                            <tr *ngFor="let item of usuarios">
+                                <td style="color: white;">{{ item.cedula }}</td>
+                                <td style="color: white;">{{ item.nombres }} </td>
+                                <td style="color: white;">{{ item.apellidos }}</td>
+                                <td style="color: white;">{{ item.telefono }}</td>
+                                <td style="color: white;">{{ item.direccion }}</td>
+
+                                <td>
+                                    <button type="button" name="edit" (click)='edit(item)'
+                                        class="btn btn-primary btn-sm"><span class="bi bi-pencil">Editar</span></button>
+                                    <button type="button" name="delete" (click)='delete(item)'
+                                        class="btn btn-danger btn-sm"><span class="bi bi-trash">Borrar</span></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-2"></div>
+</div>
