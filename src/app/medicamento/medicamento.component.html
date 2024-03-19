@@ -1,0 +1,26 @@
+<app-header></app-header>
+<form (ngSubmit)="createMedicamento()" class="center">
+    <div class="form-group row center">
+        <label for="descripcion" class="col-form-label col-sm-2">Nombre</label>
+        <div class="col-sm-6 my-2">
+            <input type="text" class="form-control" [(ngModel)]="medicamento.nombre" name="nombre" required="true">
+        </div>
+    </div>
+    <div class="form-group row center">
+        <label for="descripcion" class="col-form-label col-sm-2">Descripcion</label>
+        <div class="col-sm-6 my-2">
+            <input type="text" class="form-control" [(ngModel)]="medicamento.descripcion" name="descripcion" required="true">
+        </div>
+    </div>
+    <div class="form-group row center">
+        <label for="descripcion" class="col-form-label col-sm-2">Dosis</label>
+        <div class="col-sm-6 my-2">
+            <input type="text" class="form-control" [(ngModel)]="medicamento.dosis" name="dosis" required="true">
+        </div>
+    </div>
+    <div class="form-group row center">
+        <div class="col-sm-12 center my-2">
+            <button class="btn btn-primary " name="button">Crear</button>
+        </div>
+    </div>
+</form>

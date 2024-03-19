@@ -1,0 +1,104 @@
+<app-header></app-header>
+<div class="row">
+    <div class="col-2"></div>
+    <div class="col-8">
+        <div class="card mb-3">
+            <div class="text-black" style="background-color: white;">
+                <div class="card-header">{{title}}</div>
+                <div class="card-body"></div>
+                <form (ngSubmit)="create()" class="center">
+                    <div class="form-group row center">
+                        <label for="nombre" class="col-form-label col-sm-2">nombre</label>
+                        <div class="col-sm-6 my-2">
+                            <input type="text" class="form-control" *ngIf="!mascotaEditar" [(ngModel)]="mascota.nombre"
+                                name="nombre" required="true">
+                            <input type="text" class="form-control" *ngIf="mascotaEditar"
+                                [(ngModel)]="mascotaEditar.nombre" name="nombre" required="true">
+                        </div>
+                    </div>
+                    <div class="form-group row center">
+                        <label for="raza" class="col-form-label col-sm-2">Raza</label>
+                        <div class="col-sm-6 my-2">
+                            <input type="text" class="form-control" *ngIf="!mascotaEditar" [(ngModel)]="mascota.raza"
+                                name="raza" required="true">
+                            <input type="text" class="form-control" *ngIf="mascotaEditar"
+                                [(ngModel)]="mascotaEditar.raza" name="raza" required="true">
+                        </div>
+                    </div>
+                    <div class="form-group row center">
+                        <label for="edad" class="col-form-label col-sm-2">Edad</label>
+                        <div class="col-sm-6 my-2">
+                            <input type="text" class="form-control" *ngIf="!mascotaEditar" [(ngModel)]="mascota.edad"
+                                name="edad" required="true">
+                            <input type="text" class="form-control" *ngIf="mascotaEditar"
+                                [(ngModel)]="mascotaEditar.edad" name="edad" required="true">
+                        </div>
+                    </div>
+
+                    <div class="form-group row center">
+                        <label for="peso" class="col-form-label col-sm-2">Peso</label>
+                        <div class="col-sm-6 my-2">
+                            <input type="text" class="form-control" *ngIf="!mascotaEditar" [(ngModel)]="mascota.peso"
+                                name="peso" required="true">
+                            <input type="text" class="form-control" *ngIf="mascotaEditar"
+                                [(ngModel)]="mascotaEditar.peso" name="peso" required="true">
+                        </div>
+                    </div>
+
+                    <div class="form-group row center">
+                        <label for="cliente" class="col-form-label col-sm-2">Usuario</label>
+                        <div class="col-sm-6 my-2">
+                            <div *ngIf="usuarios">
+                                <select [(ngModel)]="mascota.cliente" name="cliente" required="true" class="form-control">
+                                    <option *ngFor="let elemento of usuarios" [value]="elemento.cedula">{{ elemento.nombres }}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group row center">
+                        <div class="col-sm-12 center my-2">
+                            <button class="btn btn-primary " *ngIf="!mascotaEditar" name="button">Guardar</button>
+                            <button class="btn btn-primary " *ngIf="mascotaEditar" name="button">Actualizar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="card-body text-primary" style="background-color: #196844;" *ngIf="mascotaActual">
+                <div class="card-body text-primary" style="background-color: #196844;"
+                    *ngIf="mascotaActual.rol === 'Admin'">
+                    <h5 class="card-title" style="color: white;">Mascotas</h5>
+
+                    <table class="table table-striped" style="color: white;">
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Raza</th>
+                                <th>Edad</th>
+                                <th>Peso</th>
+                                <th>Cliente</th>
+                            </tr>
+                        </thead>
+                        <tbody style="color: white;">
+                            <tr *ngFor="let item of mascotas">
+                                <td style="color: white;">{{ item.nombre }} </td>
+                                <td style="color: white;">{{ item.raza }}</td>
+                                <td style="color: white;">{{ item.edad }}
+                                <td style="color: white;">{{ item.peso }} </td>
+                                <td style="color: white;">{{ item.Cliente }}</td>
+                                <td>
+                                    <button type="button" name="edit" (click)='edit(item)'
+                                        class="btn btn-primary btn-sm"><span class="bi bi-pencil">Editar</span></button>
+                                    <button type="button" name="delete" (click)='delete(item)'
+                                        class="btn btn-danger btn-sm"><span class="bi bi-trash">Borrar</span></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-2"></div>
+</div>
