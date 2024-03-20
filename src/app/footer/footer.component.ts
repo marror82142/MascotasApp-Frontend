@@ -8,5 +8,5 @@ import {Component} from '@angular/core';
 
 export class FooterComponent {
   author: any = {name: 'Mateo', lastname:'Arroyave'};
-  year = '2022';
+  year = '2024';
 }

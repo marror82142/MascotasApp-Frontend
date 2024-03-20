@@ -23,6 +23,10 @@ export class mascotaService {
     return this.http.get<mascota>(`${this.endpointUrl}/${id}`)
   }
 
+  getMascotaByNombre(nombre: string): Observable<mascota>{
+    return this.http.get<mascota>(`${this.endpointUrl}/nombre/${nombre}`)
+  }
+
   create(mascota: mascota): Observable<mascota>{
     return this.http.post<mascota>(this.endpointUrl, mascota, {headers: this.httpHeaders});
   }

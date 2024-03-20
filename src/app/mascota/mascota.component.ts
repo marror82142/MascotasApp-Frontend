@@ -18,10 +18,13 @@ import { log } from 'console';
 export class mascotaComponent implements OnInit {
   public mascotaActual=JSON.parse(localStorage.getItem("mascotaActual"));
   mascotas: mascota[] = [];
+  public mascotasCliente: mascota[] = [];
   medicamentos: medicamento[] = [];
   public mascota: mascota = new mascota;
   public mascotaEditar: mascota = null;
   public usuarios: usuario[] = [];
+  public usuarioAux: number = 0;
+  public medicamentoAux: number = 0;
 
   public title = "Registro";
   constructor(private mascotaService: mascotaService,
@@ -37,7 +40,7 @@ export class mascotaComponent implements OnInit {
     );
     this.usuarioService.getUsuarios().subscribe(
       usuarios => {this.usuarios = usuarios
-      console.log(usuarios,'ss')}
+      console.log(usuarios)}
     );
     this.medicamentoService.getMedicamentos().subscribe(
       medicamentos => {this.medicamentos = medicamentos}
@@ -80,21 +83,30 @@ export class mascotaComponent implements OnInit {
     })
   }
 
-  public create(): void{   
+  public create(): void{ 
     if(this.mascotaEditar!=null){
       this.update();
     }else{
+      this.mascota.cliente = this.usuarios.find(u => u.cedula == this.usuarioAux);
+      this.mascota.medicamento = this.medicamentos.find(m => m.id == this.medicamentoAux);
+      for (let index = 0; index < this.mascotas.length; index++) {
+        if(this.mascotas[index].cliente.cedula == this.usuarioAux){
+          this.mascotasCliente.push(this.mascotas[index]);
+        }
+      }
+      const val = String(this.usuarioAux) + String(this.mascotasCliente.length + 1)
+      console.log(val);
+      console.log(this.mascota.cliente);
+      this.mascota.id = Number(val); 
       this.mascotaService.getMascota(this.mascota.id).subscribe( (mascota) => {
         if(mascota != null){
           swal.fire('Error', `La mascota ya ha sido creado`, 'error')
         }else{ 
-          this.mascota.cliente = this.usuarios.find(u => u.cedula == this.mascota.cliente as any)
           this.mascotaService.create(this.mascota)
           .subscribe(mascota => {               
             this.mascotaService.getMascotas().subscribe(
               mascotas => this.mascotas = mascotas
             );
-            this.router.navigate(['/login'])
             swal.fire('Nueva mascota', `mascota ${mascota.nombre}  creada`, 'success')
           });  
       }
@@ -116,3 +128,7 @@ export class mascotaComponent implements OnInit {
   }
 
 }
+function forEach(values: any, arg1: (value: any, key: any) => void) {
+  throw new Error('Function not implemented.');
+}
+

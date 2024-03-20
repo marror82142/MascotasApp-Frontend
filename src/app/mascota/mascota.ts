@@ -8,5 +8,5 @@ export class mascota {
   edad: string; 
   peso: string;
   cliente: usuario;
-  medicamentos: medicamento;
+  medicamento: medicamento;
 }

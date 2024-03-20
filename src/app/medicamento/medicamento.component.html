@@ -1,6 +1,15 @@
 <app-header></app-header>
 <form (ngSubmit)="create()" class="center">
     <div class="form-group row center">
+        <label for="id" class="col-form-label col-sm-2">Id</label>
+        <div class="col-sm-6 my-2">
+            <input type="text" class="form-control" *ngIf="!medicamentoEditar" [(ngModel)]="medicamento.Id"
+                name="id" required="true">
+            <input type="text" class="form-control" *ngIf="medicamentoEditar"
+                [(ngModel)]="medicamentoEditar.Id" name="cedula" required="true">
+        </div>
+    </div>
+    <div class="form-group row center">
         <label for="descripcion" class="col-form-label col-sm-2">Nombre</label>
         <div class="col-sm-6 my-2"> 
             <input type="text" class="form-control" *ngIf="medicamentoEditar"   [(ngModel)]="medicamentoEditar.nombre" name="nombre" required="true">
@@ -22,8 +31,6 @@
             <input type="text" class="form-control"  *ngIf="!medicamentoEditar" [(ngModel)]="medicamento.dosis" name="dosis" required="true">
             
             <input type="text" class="form-control"   *ngIf="medicamentoEditar"  [(ngModel)]="medicamentoEditar.dosis" name="dosis" required="true">
-
-        
       
         </div>
     </div>

@@ -1,8 +1,8 @@
 
 export class usuario {
   cedula: number;
-  nombres: number;
-	apellidos: number;
-	direccion: number;
-	telefono: number;
+  nombres: String;
+	apellidos: String;
+	direccion: String;
+	telefono: String;
 }
