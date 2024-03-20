@@ -13,6 +13,7 @@ import { mascotaComponent } from './mascota/mascota.component';
 import { mascotaService } from './mascota/mascota.service';
 import { medicamentoComponent } from './medicamento/medicamento.component';
 import { medicamentoService } from './medicamento/medicamento.service';
+import { ReporteComponent } from './reporte/reporte.component';
 
 
 
@@ -20,7 +21,8 @@ const routes: Routes = [
   {path: '', component: usuarioComponent},
   {path: 'usuarios', component: usuarioComponent},
   {path: 'mascotas', component: mascotaComponent},
-  {path: 'medicamentos', component: medicamentoComponent}
+  {path: 'medicamentos', component: medicamentoComponent},
+  {path: 'reporte', component: ReporteComponent}
 
 ]
 
@@ -31,7 +33,8 @@ const routes: Routes = [
     FooterComponent,
     usuarioComponent,
     mascotaComponent,
-    medicamentoComponent
+    medicamentoComponent,
+    ReporteComponent
   ],
   imports: [
     BrowserModule,

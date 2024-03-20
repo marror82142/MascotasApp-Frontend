@@ -33,10 +33,11 @@ export class mascotaComponent implements OnInit {
 
   ngOnInit(){
     this.mascotaService.getMascotas().subscribe(
-      mascotas => this.mascotas = mascotas
+      mascotas =>{ this.mascotas = {...mascotas,cliente:null,medicamento:null} as any}
     );
     this.usuarioService.getUsuarios().subscribe(
-      usuarios => {this.usuarios = usuarios}
+      usuarios => {this.usuarios = usuarios
+      console.log(usuarios,'ss')}
     );
     this.medicamentoService.getMedicamentos().subscribe(
       medicamentos => {this.medicamentos = medicamentos}

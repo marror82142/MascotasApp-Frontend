@@ -1,0 +1,56 @@
+<app-header></app-header>
+
+
+
+<div  style="padding: 100px; margin:auto;" >
+   
+<button class="btn btn-primary" (click)="generateReport()">Medicamentos</button>
+
+<div #pdfContent style="padding: 50px;">
+   <h1>Medicamentos</h1>
+   
+   <table  class="table table-striped">
+      <thead>
+         <th>Nombre</th>
+         <th>Descripcion</th>
+         <th>Dosis</th>
+      </thead>
+      <tbody>
+         <tr *ngFor="let item of medicamentos">
+            <td >{{ item.nombre }}</td>
+            <td >{{ item.descripcion }} </td>
+            <td >{{ item.dosis }}</td>
+          </tr>
+      </tbody>
+   </table>
+</div>
+
+
+<button class="btn btn-primary" (click)="generateReportUsuarios()">Usuarios</button>
+
+<div #pdfContent1 style="padding: 50px;">
+   <h1>Usuarios</h1>
+   
+   <table class="table table-striped" >
+      <thead>
+          <tr>
+              <th>Cedula</th>
+              <th>Nombres</th>
+              <th>Apellidos</th>
+              <th>Telefono</th>
+              <th>Direccion</th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr *ngFor="let item of usuarios">
+              <td >{{ item.cedula }}</td>
+              <td >{{ item.nombres }} </td>
+              <td >{{ item.apellidos }}</td>
+              <td >{{ item.telefono }}</td>
+              <td >{{ item.direccion }}</td>
+          </tr>
+      </tbody>
+   </table>
+</div>
+
+</div>

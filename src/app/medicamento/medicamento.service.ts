@@ -9,7 +9,7 @@ import { medicamento } from './medicamento';
   providedIn: 'root'
 })
 export class medicamentoService {
-  private endpointUrl = 'http://localhost:8080/api/medicamento';
+  private endpointUrl = 'http://localhost:8080/api/medicamentos';
   private httpHeaders = new HttpHeaders({'Content-Type':'application/json'});
   constructor(private http: HttpClient ) { }
 
@@ -21,7 +21,7 @@ export class medicamentoService {
     return this.http.get<medicamento[]>(this.endpointUrl);
   }
 
-  getMedicamento(id: number): Observable<medicamento>{
+  getMedicamento(id: string): Observable<medicamento>{
     return this.http.get<medicamento>(`${this.endpointUrl}/${id}`)
   }
   

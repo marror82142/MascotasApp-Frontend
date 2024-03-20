@@ -19,19 +19,24 @@ export class medicamentoComponent implements OnInit {
               private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.medicamentoService.getMedicamentos().subscribe(
-      medicamentos => this.medicamentos = medicamentos
-    ); 
+    this.getMedicamentos();
   }
 
   public createMedicamento(): void{
     this.medicamentoService.create(this.medicamento)
           .subscribe(medicamento => {             
-            swal.fire('Medicamento creada', `La medicamento de ${medicamento.nombre} ha sido creada`, 'success')
+            swal.fire('Medicamento creada', `La medicamento de ${medicamento.nombre} ha sido creada`, 'success')        
+            this.getMedicamentos();
           }
         );
+
   }
 
+  public getMedicamentos():void{
+    this.medicamentoService.getMedicamentos().subscribe(
+      medicamentos => this.medicamentos = medicamentos
+    ); 
+  }
 
 
   delete(medicamento: medicamento): void {
@@ -54,6 +59,7 @@ export class medicamentoComponent implements OnInit {
               `Medicamento ${medicamento.nombre} eliminado correctamente.`,
               'success'
             )
+            this.getMedicamentos();
           }
         )
 
@@ -74,7 +80,7 @@ export class medicamentoComponent implements OnInit {
     if(this.medicamentoEditar!=null){
       this.update();
     }else{
-      this.medicamentoService.getMedicamento(this.medicamento.id).subscribe( (medicamento) => {
+      this.medicamentoService.getMedicamento(this.medicamento.nombre).subscribe( (medicamento) => {
         if(medicamento != null){
           swal.fire('Error', `El medicamento ya ha sido creado`, 'error')
         }else{    
@@ -95,6 +101,7 @@ export class medicamentoComponent implements OnInit {
     this.medicamentoService.update(this.medicamentoEditar)
     .subscribe( medicamentoEditar => {
       this.router.navigate(['/medicamentos'])
+      this.medicamentoEditar=null;
       swal.fire('Medicamento actualizado', `medicamento ${medicamentoEditar.nombre} actualizado`, 'success')
     }
     )
@@ -105,4 +112,5 @@ export class medicamentoComponent implements OnInit {
   }
 
 
+  
 }

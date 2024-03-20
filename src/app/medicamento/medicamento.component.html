@@ -1,26 +1,70 @@
 <app-header></app-header>
-<form (ngSubmit)="createMedicamento()" class="center">
+<form (ngSubmit)="create()" class="center">
     <div class="form-group row center">
         <label for="descripcion" class="col-form-label col-sm-2">Nombre</label>
-        <div class="col-sm-6 my-2">
-            <input type="text" class="form-control" [(ngModel)]="medicamento.nombre" name="nombre" required="true">
+        <div class="col-sm-6 my-2"> 
+            <input type="text" class="form-control" *ngIf="medicamentoEditar"   [(ngModel)]="medicamentoEditar.nombre" name="nombre" required="true">
+    
+            <input type="text" class="form-control" *ngIf="!medicamentoEditar"   [(ngModel)]="medicamento.nombre" name="nombre" required="true">
         </div>
     </div>
     <div class="form-group row center">
         <label for="descripcion" class="col-form-label col-sm-2">Descripcion</label>
         <div class="col-sm-6 my-2">
-            <input type="text" class="form-control" [(ngModel)]="medicamento.descripcion" name="descripcion" required="true">
+            <input type="text" class="form-control"  *ngIf="medicamentoEditar"  [(ngModel)]="medicamentoEditar.descripcion" name="descripcion" required="true">
+     
+            <input type="text" class="form-control"  *ngIf="!medicamentoEditar"  [(ngModel)]="medicamento.descripcion" name="descripcion" required="true">
         </div>
     </div>
     <div class="form-group row center">
         <label for="descripcion" class="col-form-label col-sm-2">Dosis</label>
         <div class="col-sm-6 my-2">
-            <input type="text" class="form-control" [(ngModel)]="medicamento.dosis" name="dosis" required="true">
+            <input type="text" class="form-control"  *ngIf="!medicamentoEditar" [(ngModel)]="medicamento.dosis" name="dosis" required="true">
+            
+            <input type="text" class="form-control"   *ngIf="medicamentoEditar"  [(ngModel)]="medicamentoEditar.dosis" name="dosis" required="true">
+
+        
+      
         </div>
     </div>
     <div class="form-group row center">
         <div class="col-sm-12 center my-2">
-            <button class="btn btn-primary " name="button">Crear</button>
+            <button class="btn btn-primary " *ngIf="!medicamentoEditar" name="button">Crear</button>
+            <button class="btn btn-primary " *ngIf="medicamentoEditar" name="button">Actualizar</button>
         </div>
     </div>
 </form>
+
+<br/>
+<br/>
+<br/>
+<div class="card-body text-primary">
+    <div class="card-body text-primary" >
+        <h5 class="card-title" >Medicamentos</h5>
+
+        <table class="table table-striped" >
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Descripcion</th>
+                    <th>Dosis</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody >
+                <tr *ngFor="let item of medicamentos">
+                    <td >{{ item.nombre }}</td>
+                    <td >{{ item.descripcion }} </td>
+                    <td >{{ item.dosis }}</td>
+
+                    <td>
+                        <button type="button" name="edit" (click)='edit(item)'
+                            class="btn btn-primary btn-sm"><span class="bi bi-pencil">Editar</span></button>
+                        <button type="button" name="delete" (click)='delete(item)'
+                            class="btn btn-danger btn-sm"><span class="bi bi-trash">Borrar</span></button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
