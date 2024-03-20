@@ -24,14 +24,9 @@ export class usuarioComponent implements OnInit {
               private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(){
-    if(this.usuarioActual !== null){
-      if(this.usuarioActual && this.usuarioActual.rol !== "Admin"){
-        this.usuarioEditar = this.usuarioActual
-      }
-      this.usuarioService.getUsuarios().subscribe(
-        usuarios => this.usuarios = usuarios
-      );
-    }
+    this.usuarioService.getUsuarios().subscribe(
+      usuarios => this.usuarios = usuarios
+    ); 
   }
 
   delete(usuario: usuario): void {

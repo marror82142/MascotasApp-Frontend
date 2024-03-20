@@ -7,6 +7,7 @@ import swal from 'sweetalert2';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment';
 import {medicamento} from '../medicamento/medicamento';
+import {medicamentoService} from '../medicamento/medicamento.service';
 import { log } from 'console';
 
 @Component({
@@ -17,6 +18,7 @@ import { log } from 'console';
 export class mascotaComponent implements OnInit {
   public mascotaActual=JSON.parse(localStorage.getItem("mascotaActual"));
   mascotas: mascota[] = [];
+  medicamentos: medicamento[] = [];
   public mascota: mascota = new mascota;
   public mascotaEditar: mascota = null;
   public usuarios: usuario[] = [];
@@ -25,21 +27,19 @@ export class mascotaComponent implements OnInit {
   constructor(private mascotaService: mascotaService,
               private router: Router,
               private usuarioService: usuarioService,
+              private medicamentoService: medicamentoService,
               private activatedRoute: ActivatedRoute) { }
 
 
   ngOnInit(){
-    if(this.mascotaActual !== null){
-      if(this.mascotaActual && this.mascotaActual.rol !== "Admin"){
-        this.mascotaEditar = this.mascotaActual
-      }
-      this.mascotaService.getMascotas().subscribe(
-        mascotas => this.mascotas = mascotas
-      );
-    }
+    this.mascotaService.getMascotas().subscribe(
+      mascotas => this.mascotas = mascotas
+    );
     this.usuarioService.getUsuarios().subscribe(
-      usuarios => {this.usuarios = usuarios
-      console.log(usuarios)}
+      usuarios => {this.usuarios = usuarios}
+    );
+    this.medicamentoService.getMedicamentos().subscribe(
+      medicamentos => {this.medicamentos = medicamentos}
     );
   }
 

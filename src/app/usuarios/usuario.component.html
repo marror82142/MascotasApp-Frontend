@@ -60,12 +60,14 @@
                     </div>
                 </form>
             </div>
+            <br/>
+            <br/>
+            <br/>
+            <div class="card-body text-primary">
+                <div class="card-body text-primary" >
+                    <h5 class="card-title" >Usuarios</h5>
 
-            <div class="card-body text-primary" style="background-color: #196844;" *ngIf="usuarioActual">
-                <div class="card-body text-primary" style="background-color: #196844;">
-                    <h5 class="card-title" style="color: white;">Usuarios</h5>
-
-                    <table class="table table-striped" style="color: white;">
+                    <table class="table table-striped" >
                         <thead>
                             <tr>
                                 <th>Cedula</th>
@@ -76,13 +78,13 @@
                                 <th></th>
                             </tr>
                         </thead>
-                        <tbody style="color: white;">
+                        <tbody >
                             <tr *ngFor="let item of usuarios">
-                                <td style="color: white;">{{ item.cedula }}</td>
-                                <td style="color: white;">{{ item.nombres }} </td>
-                                <td style="color: white;">{{ item.apellidos }}</td>
-                                <td style="color: white;">{{ item.telefono }}</td>
-                                <td style="color: white;">{{ item.direccion }}</td>
+                                <td >{{ item.cedula }}</td>
+                                <td >{{ item.nombres }} </td>
+                                <td >{{ item.apellidos }}</td>
+                                <td >{{ item.telefono }}</td>
+                                <td >{{ item.direccion }}</td>
 
                                 <td>
                                     <button type="button" name="edit" (click)='edit(item)'

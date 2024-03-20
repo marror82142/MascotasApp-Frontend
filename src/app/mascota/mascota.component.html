@@ -57,6 +57,17 @@
                     </div>
 
                     <div class="form-group row center">
+                        <label for="cliente" class="col-form-label col-sm-2">Medicamento</label>
+                        <div class="col-sm-6 my-2">
+                            <div *ngIf="medicamentos">
+                                <select [(ngModel)]="mascota.medicamento" name="medicamento" required="true" class="form-control">
+                                    <option *ngFor="let elemento of medicamentos" [value]="elemento.id">{{ elemento.nombre }}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group row center">
                         <div class="col-sm-12 center my-2">
                             <button class="btn btn-primary " *ngIf="!mascotaEditar" name="button">Guardar</button>
                             <button class="btn btn-primary " *ngIf="mascotaEditar" name="button">Actualizar</button>
@@ -65,12 +76,12 @@
                 </form>
             </div>
 
-            <div class="card-body text-primary" style="background-color: #196844;" *ngIf="mascotaActual">
-                <div class="card-body text-primary" style="background-color: #196844;"
+            <div class="card-body text-primary">
+                <div class="card-body text-primary" 
                     *ngIf="mascotaActual.rol === 'Admin'">
-                    <h5 class="card-title" style="color: white;">Mascotas</h5>
+                    <h5 class="card-title" >Mascotas</h5>
 
-                    <table class="table table-striped" style="color: white;">
+                    <table class="table table-striped" >
                         <thead>
                             <tr>
                                 <th>Nombre</th>
@@ -80,13 +91,13 @@
                                 <th>Cliente</th>
                             </tr>
                         </thead>
-                        <tbody style="color: white;">
+                        <tbody >
                             <tr *ngFor="let item of mascotas">
-                                <td style="color: white;">{{ item.nombre }} </td>
-                                <td style="color: white;">{{ item.raza }}</td>
-                                <td style="color: white;">{{ item.edad }}
-                                <td style="color: white;">{{ item.peso }} </td>
-                                <td style="color: white;">{{ item.Cliente }}</td>
+                                <td >{{ item.nombre }} </td>
+                                <td >{{ item.raza }}</td>
+                                <td >{{ item.edad }}
+                                <td >{{ item.peso }} </td>
+                                <td >{{ item.Cliente }}</td>
                                 <td>
                                     <button type="button" name="edit" (click)='edit(item)'
                                         class="btn btn-primary btn-sm"><span class="bi bi-pencil">Editar</span></button>

@@ -20,7 +20,7 @@ const routes: Routes = [
   {path: '', component: usuarioComponent},
   {path: 'usuarios', component: usuarioComponent},
   {path: 'mascotas', component: mascotaComponent},
-  {path: 'medicamento', component: medicamentoComponent}
+  {path: 'medicamentos', component: medicamentoComponent}
 
 ]
 

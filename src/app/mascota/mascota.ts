@@ -1,3 +1,4 @@
+import { medicamento } from "../medicamento/medicamento";
 import { usuario } from "../usuarios/usuario";
 
 export class mascota {
@@ -7,5 +8,5 @@ export class mascota {
   edad: string; 
   peso: string;
   cliente: usuario;
-  //medicamentos: medicamento;
+  medicamentos: medicamento;
 }
