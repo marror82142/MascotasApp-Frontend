@@ -53,4 +53,28 @@
    </table>
 </div>
 
+
+<div #pdfContent2 style="padding: 50px;">
+   <h1>Mascotas por Usuario</h1>
+   
+   <table class="table table-striped" >
+      <thead>
+          <tr>
+              <th>Cedula</th>
+              <th>Nombres</th>
+              <th>Mascota</th>
+              <th>Medicamento</th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr *ngFor="let i of mascotasUsuario">
+              <td >{{ i.cedula }}</td>
+              <td >{{ i.nombre }} </td>
+              <td >{{ i.mascota }}</td>
+              <td >{{ i.medicamento }}</td>
+          </tr>
+      </tbody>
+   </table>
+</div>
+<button class="btn btn-primary" (click)="generateReportMascotaUsuarios()">Reporte mascotas por usuario</button>
 </div>
