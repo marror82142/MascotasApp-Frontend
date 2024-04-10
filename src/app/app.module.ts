@@ -14,6 +14,7 @@ import { mascotaService } from './mascota/mascota.service';
 import { medicamentoComponent } from './medicamento/medicamento.component';
 import { medicamentoService } from './medicamento/medicamento.service';
 import { ReporteComponent } from './reporte/reporte.component';
+import { GraphQLModule } from './graphql.module';
 
 
 
@@ -41,7 +42,8 @@ const routes: Routes = [
     HttpClientModule,
     FormsModule,    
     ReactiveFormsModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    GraphQLModule
   ],
   providers: [usuarioService, mascotaService,  medicamentoService],
   bootstrap: [AppComponent]

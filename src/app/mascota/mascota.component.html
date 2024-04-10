@@ -5,7 +5,7 @@
         <div class="card mb-3">
             <div class="text-black" style="background-color: white;">
                 <div class="card-header">{{title}}</div>
-                <div class="card-body"></div>
+                <div class="card-body"><button class="btn btn-primary" (click)="updateView()">Actualizar vista</button></div>
                 <form (ngSubmit)="create()" class="center">
                     <div class="form-group row center">
                         <label for="nombre" class="col-form-label col-sm-2">nombre</label>

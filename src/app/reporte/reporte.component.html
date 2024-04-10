@@ -1,8 +1,8 @@
 <app-header></app-header>
 
 
-
-<div  style="padding: 100px; margin:auto;" >
+<button class="btn btn-primary" (click)="updateView()">Actualizar vista</button>
+<div  style="padding-right: 100px; padding-left: 100px;padding-top: 50px; margin:auto;" >
    
 <button class="btn btn-primary" (click)="generateReport()">Medicamentos</button>
 
@@ -68,10 +68,10 @@
       </thead>
       <tbody>
           <tr *ngFor="let i of mascotasUsuario">
-              <td >{{ i.cedula }}</td>
-              <td >{{ i.nombre }} </td>
-              <td >{{ i.mascota }}</td>
-              <td >{{ i.medicamento }}</td>
+              <td >{{ i.cliente.cedula }}</td>
+              <td >{{ i.cliente.nombres }} </td>
+              <td >{{ i.nombre }}</td>
+              <td >{{ i.medicamento.nombre }}</td>
           </tr>
       </tbody>
    </table>

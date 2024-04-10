@@ -8,99 +8,135 @@ import { usuario } from '../usuarios/usuario';
 import { mascota } from '../mascota/mascota';
 import { mascotaUsuario } from './mascotaUsuario';
 import { mascotaService } from '../mascota/mascota.service';
-
-
+import { Apollo, gql } from 'apollo-angular';
+const GET_USERS = gql`
+  query {
+    findAllUsers {
+      cedula
+      nombres
+      apellidos
+      direccion
+      telefono
+    }
+  }
+`;
+const GET_MEDICINES = gql`
+  query {
+    findAllMedicine {
+      dosis
+      id
+      nombre
+      descripcion
+    }
+  }
+`;
+const GET_MASCOTAS = gql`
+  query {
+    findAllMascota {
+      id
+      nombre
+      raza
+      edad
+      peso
+      cliente {
+        cedula
+        nombres
+        apellidos
+        direccion
+        telefono
+      }
+      medicamento {
+        dosis
+        id
+        nombre
+        descripcion
+      }
+    }
+  }
+`;
 @Component({
-  selector: 'app-reporte',
-  templateUrl: './reporte.component.html',
+  selector: "app-reporte",
+  templateUrl: "./reporte.component.html",
 })
 export class ReporteComponent implements OnInit {
-
-  @ViewChild('pdfContent', { static: false }) pdfContent!: ElementRef;
-  @ViewChild('pdfContent1', { static: false }) pdfContent1!: ElementRef;
-  @ViewChild('pdfContent2', { static: false }) pdfContent2!: ElementRef;
+  @ViewChild("pdfContent", { static: false }) pdfContent!: ElementRef;
+  @ViewChild("pdfContent1", { static: false }) pdfContent1!: ElementRef;
+  @ViewChild("pdfContent2", { static: false }) pdfContent2!: ElementRef;
   medicamentos: medicamento[] = [];
   mascotas: mascota[] = [];
   usuarios: usuario[] = [];
   usuarioAux: number;
   mascotasUsuario: mascotaUsuario[] = [];
-  constructor(private medicamentoService: medicamentoService,
-              private usuarioService: usuarioService, 
-              private mascotaService: mascotaService) { }
+  constructor(private apollo: Apollo) {}
 
   ngOnInit(): void {
-    this.getMedicamentos();
-    this.getUsuarios();
-    this.getMascotas()
+    this.getMedicineAllGraphql();
+    this.getUsersGraphql();
+    this.getMascotaAllGraphql();
   }
 
-   generateReport():void{
+  generateReport(): void {
     const pdf = new jspdf.jsPDF();
-    html2canvas(this.pdfContent.nativeElement).then(canvas => {
-      const imageData = canvas.toDataURL('image/png')
-      pdf.addImage(imageData, 'PNG', 0, 0, pdf.internal.pageSize.getWidth(),0);
-      pdf.save('medicamentos.pdf');
+    html2canvas(this.pdfContent.nativeElement).then((canvas) => {
+      const imageData = canvas.toDataURL("image/png");
+      pdf.addImage(imageData, "PNG", 0, 0, pdf.internal.pageSize.getWidth(), 0);
+      pdf.save("medicamentos.pdf");
     });
   }
 
-  llenarLista(): void{
-    console.log(this.mascotas.length)
-    for (let index = 0; index < this.mascotas.length; index++) {
-      let mascotaU = new mascotaUsuario
-      mascotaU.cedula = this.mascotas[index].cliente.cedula
-      mascotaU.nombre = String(this.mascotas[index].cliente.nombres)
-      mascotaU.mascota = this.mascotas[index].nombre
-      mascotaU.medicamento = this.mascotas[index].medicamento.nombre
-      console.log(mascotaU)
-      this.mascotasUsuario.push(mascotaU)
-    }
-  }
-
-  
-  generateReportUsuarios():void{
+  generateReportUsuarios(): void {
     const pdf = new jspdf.jsPDF();
-    html2canvas(this.pdfContent1.nativeElement).then(canvas => {
-      const imageData = canvas.toDataURL('image/png');
-      pdf.addImage(imageData, 'PNG', 0, 0, pdf.internal.pageSize.getWidth(),0);
-      pdf.save('usuarios.pdf');
+    html2canvas(this.pdfContent1.nativeElement).then((canvas) => {
+      const imageData = canvas.toDataURL("image/png");
+      pdf.addImage(imageData, "PNG", 0, 0, pdf.internal.pageSize.getWidth(), 0);
+      pdf.save("usuarios.pdf");
     });
   }
 
-  generateReportMascotaUsuarios():void{
+  generateReportMascotaUsuarios(): void {
     const pdf = new jspdf.jsPDF();
-    html2canvas(this.pdfContent2.nativeElement).then(canvas => {
-      const imageData = canvas.toDataURL('image/png');
-      pdf.addImage(imageData, 'PNG', 0, 0, pdf.internal.pageSize.getWidth(),0);
-      pdf.save('mascotasUsuario.pdf');
+    html2canvas(this.pdfContent2.nativeElement).then((canvas) => {
+      const imageData = canvas.toDataURL("image/png");
+      pdf.addImage(imageData, "PNG", 0, 0, pdf.internal.pageSize.getWidth(), 0);
+      pdf.save("mascotasUsuario.pdf");
     });
   }
 
-  getMedicamentos(){
-    this.medicamentoService.getMedicamentos().subscribe(
-      medicamentos => this.medicamentos = medicamentos
-    ); 
+  getUsersGraphql(): void {
+    this.apollo
+      .watchQuery({
+        query: GET_USERS,
+      })
+      .valueChanges.subscribe((result: any) => {
+        this.usuarios =
+          JSON.parse(JSON.stringify(result.data.findAllUsers)) || [];
+      });
   }
 
-  getUsuarios():void{
-    this.usuarioService.getUsuarios().subscribe(
-      usuarios => {this.usuarios = usuarios}
-    ); 
+  public getMedicineAllGraphql(): void {
+    this.apollo
+      .watchQuery({
+        query: GET_MEDICINES,
+      })
+      .valueChanges.subscribe((result: any) => {
+        this.medicamentos =
+          JSON.parse(JSON.stringify(result.data.findAllMedicine)) || [];
+      });
+  }
+  public getMascotaAllGraphql(): void {
+    this.apollo
+      .watchQuery({
+        query: GET_MASCOTAS,
+      })
+      .valueChanges.subscribe((result: any) => {
+        console.log(result.data.findAllMascota);
+        this.mascotasUsuario =
+          JSON.parse(JSON.stringify(result.data.findAllMascota)) || [];
+      });
   }
 
-  getMascotas():void{
-    this.mascotaService.getMascotas().subscribe(
-      mascotas => {this.mascotas = mascotas
-        for (let index = 0; index < this.mascotas.length; index++) {
-          let mascotaU = new mascotaUsuario
-          mascotaU.cedula = this.mascotas[index].cliente.cedula
-          mascotaU.nombre = String(this.mascotas[index].cliente.nombres + " " + this.mascotas[index].cliente.apellidos)
-          mascotaU.mascota = this.mascotas[index].nombre
-          mascotaU.medicamento = this.mascotas[index].medicamento.nombre
-          console.log(mascotaU)
-          this.mascotasUsuario.push(mascotaU)
-        }            
-      }
-    ); 
+  updateView(): void {
+    window.location.reload();
   }
 }
 

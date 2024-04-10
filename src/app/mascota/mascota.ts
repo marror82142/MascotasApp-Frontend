@@ -9,4 +9,6 @@ export class mascota {
   peso: string;
   cliente: usuario;
   medicamento: medicamento;
+  idCliente: number;
+  idMedicamento: number;
 }
